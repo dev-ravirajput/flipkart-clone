@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +30,20 @@ Route::prefix('admin')->group(function () {
     Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('admin.edit.category');
     Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('admin.update.category');
     Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('admin.delete.category');
+
+    Route::prefix('/sub-category')->group(function (){
+        Route::get('/', [SubcategoryController::class, 'index'])->name('admin.subcategory');
+        Route::get('/add', [SubcategoryController::class, 'create'])->name('admin.subcategory.add');
+        Route::post('/store', [SubcategoryController::class, 'store'])->name('admin.subcategory.store');
+        Route::get('/edit/{id}', [SubcategoryController::class, 'edit'])->name('admin.subcategory.edit');
+        Route::post('/update/{id}', [SubcategoryController::class, 'update'])->name('admin.subcategory.update');
+        Route::delete('/delete/{id}', [SubcategoryController::class, 'destroy'])->name('admin.subcategory.delete');
+    });
+
+    Route::prefix('/brands')->group(function (){
+        Route::get('/', [BrandController::class, 'index'])->name('admin.brands');
+        Route::get('/add', [BrandController::class, 'create'])->name('admin.brands.add');
+        Route::post('/store', [BrandController::class, 'store'])->name('admin.brands.store');
+    });
 });
 

@@ -121,8 +121,12 @@
             <li class="{{ Request::routeIs('admin.category') ? 'active' : '' }}">
                 <a href="{{ route('admin.category') }}"><i class="fa-solid fa-square-poll-vertical pr-3"></i> Category</a>
             </li>
-            <li><a href="#"><i class="fa-solid fa-list pr-3"></i> Subcategory</a></li>
-            <li><a href="#">Services</a></li>
+            <li class="{{ Request::routeIs('admin.subcategory') ? 'active' : '' }}">
+                <a href="{{ route('admin.subcategory') }}"><i class="fa-solid fa-list pr-3"></i> Subcategory</a>
+            </li>
+            <li class="{{ Request::routeIs('admin.brands') ? 'active' : '' }}">
+                <a href="{{ route('admin.brands') }}"><i class="fa-solid fa-bolt-lightning pr-3"></i>Brands</a>
+            </li>
             <li><a href="#">Contact</a></li>
         </ul>
     </div>

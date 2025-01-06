@@ -8,10 +8,10 @@
 </style>
 @section('content')
 <section class="mt-2">
-    <h2 class="">Categories</h2>
+    <h2 class="">Sub Categories</h2>
     <div class="container card p-4">
         <div class="text-end">
-        <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Add Category</a>
+        <a href="{{ route('admin.subcategory.add') }}" class="btn btn-primary">Add Sub Category</a>
         </div>
         <div class="row mt-2">
             <table class="table table-hover table-responsive">
@@ -26,25 +26,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($categories as $category)
+                    @foreach($subcategories as $subcategory)
                     <tr>
-                        <td class="text-center">{{ $loop->iteration }}</td>
-                        <td class="text-center">
-                            <img src="{{ asset('storage/'.$category->image) }}" alt="" width="50" height="50" style="border-radius: 5px;">
+                       <td class="text-center">{{ $subcategory->id }}</td>
+                       <td class="text-center">
+                        <img src="{{ asset('storage/'.$subcategory->image) }}" height="50" width="50" style="border-radius: 5px;">
+                       </td>
+                       <td class="text-center">{{ $subcategory->name }}</td>
+                       <td class="text-center">{{ $subcategory->slug }}</td>
+                       <td class="text-center">
+                        @if($subcategory->status == 1)
+                        <span class="badge bg-success">Active</span>
+                        @else
+                        <span class="badge bg-danger">Inactive</span>
+                        @endif
                         </td>
-                        <td class="text-center">{{ $category->name }}</td>
-                        <td class="text-center">{{ $category->slug }}</td>
                         <td class="text-center">
-                            @if($category->status == 1)
-                            <span class="badge bg-success">Active</span>
-                            @else
-                            <span class="badge bg-danger">Inactive</span>
-                            @endif
+                            <a title="Update Subcategory" href="{{ route('admin.subcategory.edit', $subcategory->id) }}" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a title="Delete Subcategory" href="javascript:void(0);" class="btn btn-danger" onclick="confirmDelete({{ $subcategory->id }})"><i class="fa-solid fa-trash"></i></a>
                         </td>
-                        <td class="text-center">
-                        <a title="Update Catecory" href="{{ route('admin.edit.category', $category->id) }}" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>    
-                        <a title="Delete Category" href="javascript:void(0);" class="btn btn-danger" onclick="confirmDelete({{ $category->id }})"><i class="fa-solid fa-trash"></i></a>
-                        <td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -67,7 +67,7 @@ function confirmDelete(id) {
             // Create a form dynamically and submit it
             var form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ route("admin.delete.category", ":id") }}'.replace(':id', id);
+            form.action = '{{ route("admin.subcategory.delete", ":id") }}'.replace(':id', id);
 
             var csrfToken = document.createElement('input');
             csrfToken.type = 'hidden';
