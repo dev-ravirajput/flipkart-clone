@@ -26,7 +26,27 @@
                     </tr>
                 </thead>
                 <tbody>
-  
+                       @foreach($brands as $brand)
+                       <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td class="text-center">
+                            <img src="{{ asset('storage/'.$brand->logo) }}" alt="" width="40" height="40" style="border-radius: 5px;">
+                        </td>
+                        <td class="text-center">{{ $brand->name }}</td>
+                        <td class="text-center">{{ $brand->slug }}</td>
+                        <td class="text-center">
+                            @if($brand->status == 1)
+                            <span class="badge bg-success">Active</span>
+                            @else
+                            <span class="badge bg-danger">Inactive</span>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            <a title="Update Brand" href="{{ route('admin.brands.edit', $brand->id) }}" class="btn btn-secondary"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a title="Delete Brand" href="javascript:void(0)" onclick="confirmDelete({{ $brand->id }})" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                       </tr>
+                       @endforeach
                 </tbody>
             </table>
         </div>
@@ -47,7 +67,7 @@ function confirmDelete(id) {
             // Create a form dynamically and submit it
             var form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ route("admin.subcategory.delete", ":id") }}'.replace(':id', id);
+            form.action = '{{ route("admin.brands.delete", ":id") }}'.replace(':id', id);
 
             var csrfToken = document.createElement('input');
             csrfToken.type = 'hidden';

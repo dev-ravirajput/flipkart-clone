@@ -5,9 +5,9 @@
 @section('content')
 <section>
     <div class="container">
-        <h2 class="mt-2">Add Brand</h2>
+        <h2 class="mt-2">Update Brand</h2>
         <div class="card p-3 mt-2">
-            <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
@@ -16,7 +16,7 @@
                             <select name="category_id" class="form-control">
                                 <option selected disabled>Choose Category</option>
                                 @foreach($subcategories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                <option value="{{ $category->id }}" {{ $brand->subcategory_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                             @error('category_id')
@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="name">Brand Name</label>
-                            <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
+                            <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $brand->name) }}">
                             @error('name')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -40,8 +40,8 @@
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-control">
                                 <option selected disabled>Select Status</option>
-                                <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+                                <option value="1" {{ old('status', $brand->status) == 1 ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ old('status', $brand->status) == 0 ? 'selected' : '' }}>Inactive</option>
                             </select>
                             @error('status')
                                 <div class="text-danger">{{ $message }}</div>
@@ -52,7 +52,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="description" id="description" rows="4">{{ old('description') }}</textarea>
+                            <textarea class="form-control" name="description" id="description" rows="4">{{ old('description', $brand->description) }}</textarea>
                             @error('description')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -61,9 +61,9 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="image">Logo</label>
-                            <input type="file" name="logo" id="image" class="form-control" onchange="previewImage()">
-                            @error('image')
+                            <label for="logo">Logo</label>
+                            <input type="file" name="logo" id="logo" class="form-control" onchange="previewImage()">
+                            @error('logo')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -73,13 +73,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="image-preview">Logo Preview</label><br>
-                            <img id="image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 150px; display: none; border-radius: 10px; border: 1px solid #ddd;">
+                            <!-- Show the existing logo if available -->
+                            <img id="image-preview" src="{{ $brand->logo ? asset('storage/' . $brand->logo) : '' }}" alt="Image Preview" style="max-width: 100%; max-height: 150px; display: {{ $brand->logo ? 'block' : 'none' }}; border-radius: 10px; border: 1px solid #ddd;">
                         </div>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary">Add Brand</button>
+                        <button type="submit" class="btn btn-primary">Update Brand</button>
                     </div>
                 </div>
             </form>
@@ -89,7 +90,7 @@
 
 <script>
     function previewImage() {
-        const file = document.getElementById('image').files[0];
+        const file = document.getElementById('logo').files[0];
         const preview = document.getElementById('image-preview');
         
         const reader = new FileReader();
