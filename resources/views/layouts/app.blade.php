@@ -103,6 +103,15 @@
     .card{
         background-color: white;
     }
+    /* Show dropdown on hover */
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; /* Adjust this based on your design if needed */
+    }
+
+    .dropdown-menu {
+        display: none; /* Keep it hidden by default */
+    }
     </style>
 </head>
 <body>
@@ -165,29 +174,49 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
+                        <li class="nav-item">
+                        <li class="nav-item dropdown">
+                            <!-- Profile Picture with Hover Dropdown -->
+                            <div class="profile-container d-inline-block" style="position: relative;">
                                 @if(Auth::user()->profilePic)
                                     <img src="{{ asset('storage/' . Auth::user()->profilePic) }}" alt="Profile Picture" height="50" width="50" class="rounded-circle">
                                 @else
                                     <img src="{{ asset('img/man.png') }}" alt="Default Profile Picture" height="50" width="50" class="rounded-circle">
                                 @endif
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
 
+                                <!-- Dropdown menu when hovering over profile picture or name -->
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('admin.profile') }}">
+                                        {{ __('View Profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <!-- Username with Hover Dropdown -->
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('admin.profile') }}">
+                                    {{ __('View Profile') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                            </div>
+                        </li>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                         @endguest
                     </ul>
                 </div>

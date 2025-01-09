@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,11 @@ Route::prefix('admin')->group(function () {
         Route::delete('/delete/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
         Route::get('/get-subcategories/{categoryId}', [ProductController::class, 'getSubcategories'])->name('get.subcategories');
         Route::get('/get-brands/{subcategoryId}', [ProductController::class, 'getBrands'])->name('get.brands');
+    });
+
+    Route::prefix('/user')->group(function (){
+        Route::get('/', [ProfileController::class, 'index'])->name('admin.profile');
+        Route::post('/update-profile', [ProfileController::class, 'update'])->name('admin.profile.update');
     });
 });
 

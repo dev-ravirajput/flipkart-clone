@@ -19,8 +19,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('role')->nullable();
             $table->text('profilePic')->nullable();
+            $table->text('phone')->nullable();
+            $table->text('address')->nullable();
+            $table->text('country')->nullable();
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 
