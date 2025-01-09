@@ -20,7 +20,8 @@
                         <th class="text-center">ID</th>
                         <th class="text-center">Image</th>
                         <th class="text-center">Name</th>
-                        <th class="text-center">Slug</th>
+                        <th class="text-center">Subcategory</th>
+                        <th class="text-center">Category</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -33,7 +34,12 @@
                             <img src="{{ asset('storage/'.$brand->logo) }}" alt="" width="40" height="40" style="border-radius: 5px;">
                         </td>
                         <td class="text-center">{{ $brand->name }}</td>
-                        <td class="text-center">{{ $brand->slug }}</td>
+                        @php
+                         $subcategory = getSubcategory($brand->subcategory_id);
+                         $category = getCategory($subcategory->category_id);
+                         @endphp
+                        <td class="text-center">{{ $subcategory->name }}</td>
+                        <td class="text-center">{{ $category->name }}</td>
                         <td class="text-center">
                             @if($brand->status == 1)
                             <span class="badge bg-success">Active</span>

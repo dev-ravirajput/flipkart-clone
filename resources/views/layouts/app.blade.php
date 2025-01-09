@@ -116,7 +116,9 @@
             <li class="{{ Request::routeIs('home') ? 'active' : '' }}"
             ><a href="{{ route('home') }}"><i class="fa-solid fa-house pr-3"></i> Dashboard</a>
         </li>
-            <li><a href="#"><i class="fa-solid fa-box pr-3"></i> Products</a></li>
+            <li class="{{ Request::routeIs('admin.products') ? 'active' : '' }}">
+                <a href="{{ route('admin.products') }}"><i class="fa-solid fa-box pr-3"></i> Products</a>
+            </li>
             <li><a href="#"><i class="fa-solid fa-cart-shopping pr-3"></i> Orders</a></li>
             <li class="{{ Request::routeIs('admin.category') ? 'active' : '' }}">
                 <a href="{{ route('admin.category') }}"><i class="fa-solid fa-square-poll-vertical pr-3"></i> Category</a>
