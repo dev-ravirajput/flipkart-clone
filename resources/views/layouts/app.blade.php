@@ -13,11 +13,17 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+    <!-- Slick Slider CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
     <!-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"> -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <!-- <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -138,7 +144,9 @@
             <li class="{{ Request::routeIs('admin.brands') ? 'active' : '' }}">
                 <a href="{{ route('admin.brands') }}"><i class="fa-solid fa-bolt-lightning pr-3"></i>Brands</a>
             </li>
-            <li><a href="#">Contact</a></li>
+            <li class="{{ Request::routeIs('admin.promotion') ? 'active' : '' }}">
+                <a href="{{ route('admin.promotion') }}"><i class="fa-regular fa-image pr-3"></i> Promotion Banners</a>
+            </li>
         </ul>
     </div>
     @endif

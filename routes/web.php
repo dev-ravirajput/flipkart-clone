@@ -6,6 +6,8 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FlipkartController;
+use App\Http\Controllers\PromotionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,10 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('flipkart')->group(function(){
+    Route::get('/', [FlipkartController::class, 'index']);
 });
 
 Auth::routes();
@@ -65,6 +71,12 @@ Route::prefix('admin')->group(function () {
     Route::prefix('/user')->group(function (){
         Route::get('/', [ProfileController::class, 'index'])->name('admin.profile');
         Route::post('/update-profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+    });
+
+    Route::prefix('/promotion')->group(function (){
+        Route::get('/', [PromotionController::class, 'index'])->name('admin.promotion');
+        Route::post('/update-banner', [PromotionController::class, 'update'])->name('admin.promotion.update');
+        Route::delete('/admin/promotion/delete/{image}', [PromotionController::class, 'deleteImage'])->name('admin.promotion.delete');
     });
 });
 
