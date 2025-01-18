@@ -19,4 +19,11 @@ class FlipkartController extends Controller
         $promotions = Promotion::all();
         return view('Frontend.index', compact('categories', 'products', 'promotions'));
     }
+
+    public function productDetails($slug)
+    {
+       $product = Product::where('slug', $slug)->first();
+       $categories = Category::where('status', 1)->get();
+       return view('Frontend.product_details', compact('product', 'categories'));
+    }
 }

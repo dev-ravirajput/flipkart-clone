@@ -20,12 +20,9 @@ use App\Http\Controllers\PromotionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::prefix('flipkart')->group(function(){
-    Route::get('/', [FlipkartController::class, 'index']);
+Route::prefix('/')->group(function(){
+    Route::get('/', [FlipkartController::class, 'index'])->name('main.home');
+    Route::get('/product/{slug}', [FlipkartController::class, 'productDetails'])->name('product.details');
 });
 
 Auth::routes();
