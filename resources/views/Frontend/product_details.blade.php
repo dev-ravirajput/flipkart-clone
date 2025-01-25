@@ -213,7 +213,7 @@ section {
 
                 <div class="product-description mt-5">
                     <h3>PRODUCT DESCRIPTION</h3>
-                    <p>{{ $product->description }}</p>
+                    <p>{!! $product->description !!}</p>
                 </div>
             </div>
         </div>

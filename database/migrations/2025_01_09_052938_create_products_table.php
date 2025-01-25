@@ -22,9 +22,10 @@ return new class extends Migration
             $table->integer('price')->default(0);
             $table->integer('discount_percentage')->nullable();
             $table->integer('discount_price')->nullable();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
+            $table->longText('short_desc')->nullable();
             $table->string('featured_image')->nullable();
-            $table->text('gallery_images')->nullable();
+            $table->text('gallery_images')->nullable(); 
             $table->timestamps();
     
             // Add foreign key constraints

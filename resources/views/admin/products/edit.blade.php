@@ -1,9 +1,12 @@
 @extends('layouts.app')
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<link href="{{ asset('summernote/summernote.css') }}" rel="stylesheet">
 <style>
     label {
         margin-top: 10px;
+    }
+    textarea{
+        height: 749px;
     }
 </style>
 @section('content')
@@ -112,7 +115,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" name="description" id="description" rows="4">{{ old('description', $product->description) }}</textarea>
+                            <textarea class="form-control" name="description" id="description">{{ old('description', $product->description) }}</textarea>
                             @error('description')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -169,6 +172,9 @@
         </div>
     </div>
 </section>
+
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('summernote/summernote.js') }}"></script>
 
 <script>
     // Prefill subcategories and brands when the page loads
@@ -329,4 +335,9 @@
         }
     }
 </script>
+<script>
+    $(document).ready(function() {
+        $('#description').summernote();
+    });
+  </script>
 @endsection

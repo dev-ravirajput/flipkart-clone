@@ -1,6 +1,6 @@
 @extends('layouts.app')
 <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<link href="{{ asset('summernote/summernote.css') }}" rel="stylesheet">
 <style>
     label{
         margin-top: 10px;
@@ -164,6 +164,9 @@
     </div>
 </section>
 
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('summernote/summernote.js') }}"></script>
+
 <script>
     function previewImage() {
         const file = document.getElementById('image').files[0];
@@ -308,4 +311,9 @@
         }
     }
 </script>
+<script>
+    $(document).ready(function() {
+        $('#description').summernote();
+    });
+  </script>
 @endsection
